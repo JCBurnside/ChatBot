@@ -19,9 +19,46 @@ import org.jibble.pircbot.NickAlreadyInUseException;
 
 import com.github.jcburnside.ChatBot.BotBase;
 import com.github.jcburnside.ChatBot.ChatHandler;
-import com.github.jcburnside.ChatBot.Utils.Bot;
 import com.github.jcburnside.ChatBot.Utils.Consts;
-@Bot
+class TwitchHandler extends ChatHandler{
+
+	@Override
+	public void send(String msg) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void ban(String usr, String reason) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void timeout(String usr, String reason) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void purge(String usr, String reason) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void purge(String usr, String reason, boolean timeout) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void handle(String msg){
+		if(msg.startsWith("PING"))
+			send(msg.split(" ")[1]);
+		else
+			super.handle(msg);
+	}
+}
 public class Twitch extends BotBase {
 	private JLabel OAuthLbl;
 	private JTextField OAuthField;
@@ -105,7 +142,7 @@ public class Twitch extends BotBase {
 			}
 		});
 		panel.add(loginBtn);
-		
+
 		return panel;
 	}
 	@Override
@@ -132,43 +169,5 @@ public class Twitch extends BotBase {
 		if(this.isConnected())
 			this.disconnect();
 	}
-	private class TwitchHandler extends ChatHandler{
 
-		@Override
-		public void send(String msg) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void ban(String usr, String reason) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void timeout(String usr, String reason) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void purge(String usr, String reason) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void purge(String usr, String reason, boolean timeout) {
-			// TODO Auto-generated method stub
-			
-		}
-		@Override
-		public void handle(String msg){
-			if(msg.startsWith("PING"))
-				send(msg.split(" ")[1]);
-			else
-				super.handle(msg);
-		}
-	}
 }

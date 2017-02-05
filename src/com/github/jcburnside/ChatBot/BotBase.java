@@ -1,11 +1,14 @@
 package com.github.jcburnside.ChatBot;
 import com.github.jcburnside.ChatBot.ChatHandler;
+import com.github.jcburnside.ChatBot.Utils.Bot;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import org.jibble.pircbot.PircBot;
+@Bot
 public abstract class BotBase extends PircBot{
 	public ChatHandler chat;
 	protected String title="";
