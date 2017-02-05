@@ -46,4 +46,9 @@ public class Beam extends BotBase{
 			
 		}
 	}
+	@Override
+	protected void logoff() {
+		// TODO Auto-generated method stub
+		
+	}
 }

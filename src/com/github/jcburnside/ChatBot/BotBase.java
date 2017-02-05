@@ -2,18 +2,21 @@ package com.github.jcburnside.ChatBot;
 import com.github.jcburnside.ChatBot.ChatHandler;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import org.jibble.pircbot.PircBot;
 public abstract class BotBase extends PircBot{
 	public ChatHandler chat;
 	protected String title="";
-	protected JTextField usrField;
+	protected JTextField usrField,input;
 	protected JTextArea chatArea;
 	protected JButton sendBtn,loginBtn;
 	protected JPasswordField passField;
 	protected JScrollPane scroll;
 	protected JLabel usrLbl,passLbl;
-	protected abstract void login(); 
+	protected abstract void login();
+	protected abstract void logoff();
 	public JPanel getPanel(){
 		JPanel panel=new JPanel();
 		panel.setBorder(BorderFactory.createTitledBorder(title));
@@ -41,9 +44,52 @@ public abstract class BotBase extends PircBot{
 		constraints.gridy=3;
 		constraints.gridheight=4;
 		layout.addLayoutComponent(scroll, constraints);
-
-		//TODO figure out how to make a scroll pane/JTextArea respond to thread changes.
-		return null;
+		constraints.gridy=7;
+		constraints.gridheight=1;
+		layout.addLayoutComponent(input, constraints);
+		constraints.gridx=4;
+		layout.addLayoutComponent(sendBtn, constraints);
+		usrLbl=new JLabel("Username:");
+		panel.add(usrLbl);
+		passLbl=new JLabel("Password:");
+		panel.add(passLbl);
+		usrField=new JTextField("Username");
+		panel.add(usrField);
+		passField=new JPasswordField("Password");
+		panel.add(passField);
+		chatArea=new JTextArea();
+		chatArea.setLineWrap(true);
+		chatArea.setAutoscrolls(true);
+		chatArea.setEditable(false);
+		scroll.setViewportView(chatArea);
+		panel.add(scroll);
+		input=new JTextField();
+		input.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				chat.send(input.getText());
+				input.setText("");
+			}
+		});
+		input.setEnabled(false);
+		panel.add(input);
+		sendBtn=new JButton("Send");
+		sendBtn.setEnabled(false);
+		panel.add(sendBtn);
+		loginBtn=new JButton("Login");
+		loginBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(loginBtn.getText()=="Login"){
+					login();
+				}else if(loginBtn.getText()=="Logoff"){
+					logoff();
+				}
+			}
+		});
+		panel.add(loginBtn);
+		
+		return panel;
 	}
 	protected void onMessage(String Channel,String sender,String login,String hostName,String msg){
 		chat.handle(msg);
