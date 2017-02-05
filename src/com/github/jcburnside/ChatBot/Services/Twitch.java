@@ -19,9 +19,9 @@ import org.jibble.pircbot.NickAlreadyInUseException;
 
 import com.github.jcburnside.ChatBot.BotBase;
 import com.github.jcburnside.ChatBot.ChatHandler;
+import com.github.jcburnside.ChatBot.Utils.Bot;
 import com.github.jcburnside.ChatBot.Utils.Consts;
-import com.sun.javafx.scene.control.skin.Utils;
-
+@Bot
 public class Twitch extends BotBase {
 	private JLabel OAuthLbl;
 	private JTextField OAuthField;
