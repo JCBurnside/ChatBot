@@ -20,8 +20,10 @@ import org.jibble.pircbot.NickAlreadyInUseException;
 import com.github.jcburnside.ChatBot.BotBase;
 import com.github.jcburnside.ChatBot.ChatHandler;
 import com.github.jcburnside.ChatBot.Utils.Consts;
+import com.github.jcburnside.ChatBot.Utils.ScriptableFunction;
+@ScriptableFunction(For="Twitch")
 class TwitchHandler extends ChatHandler{
-
+	
 	@Override
 	public void send(String msg) {
 		// TODO Auto-generated method stub
@@ -42,8 +44,7 @@ class TwitchHandler extends ChatHandler{
 
 	@Override
 	public void purge(String usr, String reason) {
-		// TODO Auto-generated method stub
-
+		purge(usr,reason,false);
 	}
 
 	@Override
