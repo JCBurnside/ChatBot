@@ -1,7 +1,6 @@
 package com.github.jcburnside.ChatBot.Services;
 import com.github.jcburnside.ChatBot.BotBase;
 import com.github.jcburnside.ChatBot.ChatHandler;
-import com.github.jcburnside.ChatBot.Utils.Bot;
 import com.github.jcburnside.ChatBot.Utils.ScriptableFunction;
 public class Beam extends BotBase{
 

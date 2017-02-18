@@ -1,7 +1,5 @@
 package com.github.jcburnside.ChatBot;
 
-import com.github.jcburnside.ChatBot.Utils.Bot;
-
 public abstract class ChatHandler {
 	/*
 	 * @param msg: string you wish bot to say in chat

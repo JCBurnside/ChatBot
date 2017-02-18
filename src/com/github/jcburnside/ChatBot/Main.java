@@ -1,7 +1,6 @@
 package com.github.jcburnside.ChatBot;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import org.atteo.classindex.ClassIndex;
 
