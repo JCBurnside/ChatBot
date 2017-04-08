@@ -23,34 +23,47 @@ import com.github.jcburnside.ChatBot.Utils.Consts;
 import com.github.jcburnside.ChatBot.Utils.ScriptableFunction;
 @ScriptableFunction(For="Twitch")
 class TwitchHandler extends ChatHandler{
-	
+	private Twitch chat;
+	private String channel;
+	public TwitchHandler(Twitch twitch){
+		chat=twitch;
+		channel=chat.getName();
+	}
+	public TwitchHandler(Twitch twitch,String _channel){
+		chat=twitch;
+		channel=_channel;
+	}
 	@Override
 	public void send(String msg) {
 		// TODO Auto-generated method stub
-
+		chat.sendMessage(channel, msg);
 	}
 
 	@Override
 	public void ban(String usr, String reason) {
-		// TODO Auto-generated method stub
-
+		send("/ban "+usr);
+		send(usr+" has been banned permanantly for "+reason);
 	}
-
+	
 	@Override
 	public void timeout(String usr, String reason) {
-		// TODO Auto-generated method stub
-
+		send("/timeout "+usr);
+		send(usr+" has been timedout for 10 mintues for "+reason);
 	}
-
+	@Override
+	public void timeout(String usr, String reason, long time) {
+		send("/timeout "+usr+" "+time);
+		send(usr+" has been timed out for "+convertToMinutes(time));
+	}
 	@Override
 	public void purge(String usr, String reason) {
-		purge(usr,reason,false);
+		purge(usr,reason,1);
 	}
 
 	@Override
-	public void purge(String usr, String reason, boolean timeout) {
-		// TODO Auto-generated method stub
-
+	public void purge(String usr, String reason, long timeout) {
+		//timeouts work as a clearchat command for users.
+		timeout(usr,reason,timeout);
 	}
 	@Override
 	public void handle(String msg){
@@ -59,6 +72,7 @@ class TwitchHandler extends ChatHandler{
 		else
 			super.handle(msg);
 	}
+	
 }
 public class Twitch extends BotBase {
 	private JLabel OAuthLbl;
@@ -161,7 +175,7 @@ public class Twitch extends BotBase {
 		} catch (IrcException e) {
 			e.printStackTrace();
 		}
-		chat=new TwitchHandler();
+		chat=new TwitchHandler(this);
 		chat.send("I am alive and am using version "+Consts.version);
 	}
 
