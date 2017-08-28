@@ -1,8 +1,8 @@
 package com.github.jcburnside.ChatBot;
 import com.github.jcburnside.ChatBot.ChatHandler;
 import com.github.jcburnside.ChatBot.Utils.Bot;
+import com.github.jcburnside.ChatBot.Utils.GBC;
 
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,51 +21,39 @@ public abstract class BotBase extends PircBot{
 	protected abstract void login();
 	protected abstract void logoff();
 	public JPanel getPanel(){
+		System.out.println("IN BASE PANEL");
+		
 		JPanel panel=new JPanel();
-		panel.setBorder(BorderFactory.createTitledBorder(title));
-		GridBagLayout layout=new GridBagLayout();
-		GridBagConstraints constraints=new GridBagConstraints();
-		constraints.fill=GridBagConstraints.HORIZONTAL;
-		constraints.ipadx=1;
-		constraints.ipady=1;
-
-		constraints.gridwidth=1;
-		constraints.gridheight=1;
-		constraints.gridx=0;
-		constraints.gridy=0;
-		layout.addLayoutComponent(usrLbl, constraints);
-		constraints.gridx=1;
-		constraints.gridwidth=3;
-		layout.addLayoutComponent(usrField, constraints);
-		constraints.gridy=1;
-		layout.addLayoutComponent(passField, constraints);
-		constraints.gridx=0;
-		constraints.gridwidth=1;
-		layout.addLayoutComponent(passLbl, constraints);
-		constraints.gridy=2;
-		layout.addLayoutComponent(loginBtn, constraints);
-		constraints.gridy=3;
-		constraints.gridheight=4;
-		layout.addLayoutComponent(scroll, constraints);
-		constraints.gridy=7;
-		constraints.gridheight=1;
-		layout.addLayoutComponent(input, constraints);
-		constraints.gridx=4;
-		layout.addLayoutComponent(sendBtn, constraints);
+		panel.setLayout(new GridBagLayout());
+		panel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
+		panel.setAlignmentY(JPanel.TOP_ALIGNMENT);
+		
 		usrLbl=new JLabel("Username:");
-		panel.add(usrLbl);
-		passLbl=new JLabel("Password:");
-		panel.add(passLbl);
+		panel.add(usrLbl, 
+				new GBC(0,0)
+				.setInsets(5)
+				.setAnchor(GBC.NORTHWEST));
 		usrField=new JTextField("Username");
-		panel.add(usrField);
+		panel.add(usrField,
+				new GBC(1,0)
+				.setFill(GBC.HORIZONTAL)
+				.setSpan(3, 1));
+		passLbl=new JLabel("Password:");
+		panel.add(passLbl,
+				new GBC(0,1)
+				.setInsets(5));
 		passField=new JPasswordField("Password");
-		panel.add(passField);
+		panel.add(passField,
+				new GBC(1,1)
+				.setFill(GBC.HORIZONTAL)
+				.setSpan(3,1));
+		scroll=new JScrollPane();
 		chatArea=new JTextArea();
 		chatArea.setLineWrap(true);
 		chatArea.setAutoscrolls(true);
 		chatArea.setEditable(false);
 		scroll.setViewportView(chatArea);
-		panel.add(scroll);
+//		panel.add(scroll);
 		input=new JTextField();
 		input.addActionListener(new ActionListener(){
 			@Override
@@ -75,10 +63,9 @@ public abstract class BotBase extends PircBot{
 			}
 		});
 		input.setEnabled(false);
-		panel.add(input);
+//		panel.add(input);
 		sendBtn=new JButton("Send");
 		sendBtn.setEnabled(false);
-		panel.add(sendBtn);
 		loginBtn=new JButton("Login");
 		loginBtn.addActionListener(new ActionListener(){
 			@Override
@@ -90,10 +77,12 @@ public abstract class BotBase extends PircBot{
 				}
 			}
 		});
-		panel.add(loginBtn);
-		
+//		panel.add(sendBtn);
+		panel.setMinimumSize(panel.getPreferredSize());;
+		panel.setBorder(BorderFactory.createTitledBorder(title));
 		return panel;
 	}
+	
 	protected void onMessage(String Channel,String sender,String login,String hostName,String msg){
 		chat.handle(msg);
 		chatArea.append(String.format("[%s]%s", sender,msg));

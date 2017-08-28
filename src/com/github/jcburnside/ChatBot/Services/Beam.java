@@ -4,8 +4,8 @@ import com.github.jcburnside.ChatBot.ChatHandler;
 import com.github.jcburnside.ChatBot.Utils.ScriptableFunction;
 public class Beam extends BotBase{
 
-	public Beam(String title) {
-		super(title);
+	public Beam() {
+		super("BEAM");
 		chat=new BeamChat();
 		// TODO Auto-generated constructor stub
 	}
@@ -48,10 +48,15 @@ class BeamChat extends ChatHandler{
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public void timeout(String usr, String reason, long time) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
-	public void purge(String usr, String reason, boolean timeout) {
+	public void purge(String usr, String reason, long timeout) {
 		// TODO Auto-generated method stub
-
+		
 	}
 }

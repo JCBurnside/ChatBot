@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -75,49 +76,17 @@ class TwitchHandler extends ChatHandler{
 	
 }
 public class Twitch extends BotBase {
-	private JLabel OAuthLbl;
-	private JTextField OAuthField;
+	private JLabel OAuthLbl=new JLabel("OAUTH");
+	private JTextField OAuthField=new JTextField();
 	public Twitch() {
 		super("Twitch");
+		
 	}
 	@Override
 	public JPanel getPanel(){
+		System.out.println("IN TWITCH PANEL");
 		JPanel panel=new JPanel();
 		panel.setBorder(BorderFactory.createTitledBorder(title));
-		GridBagLayout layout=new GridBagLayout();
-		GridBagConstraints constraints=new GridBagConstraints();
-		constraints.fill=GridBagConstraints.HORIZONTAL;
-		constraints.ipadx=1;
-		constraints.ipady=1;
-
-		constraints.gridwidth=1;
-		constraints.gridheight=1;
-		constraints.gridx=0;
-		constraints.gridy=0;
-		layout.addLayoutComponent(usrLbl, constraints);
-		constraints.gridx=1;
-		constraints.gridwidth=3;
-		layout.addLayoutComponent(usrField, constraints);
-		constraints.gridy=1;
-		layout.addLayoutComponent(passField, constraints);
-		constraints.gridx=0;
-		constraints.gridwidth=1;
-		layout.addLayoutComponent(passLbl, constraints);
-		constraints.gridy=2;
-		layout.addLayoutComponent(OAuthLbl, constraints);
-		constraints.gridx=1;
-		layout.addLayoutComponent(OAuthField, constraints);
-		constraints.gridx=0;
-		constraints.gridy=3;
-		layout.addLayoutComponent(loginBtn, constraints);
-		constraints.gridy=4;
-		constraints.gridheight=4;
-		layout.addLayoutComponent(scroll, constraints);
-		constraints.gridy=7;
-		constraints.gridheight=1;
-		layout.addLayoutComponent(input, constraints);
-		constraints.gridx=4;
-		layout.addLayoutComponent(sendBtn, constraints);
 		usrLbl=new JLabel("Username:");
 		panel.add(usrLbl);
 		passLbl=new JLabel("Password:");
@@ -126,6 +95,7 @@ public class Twitch extends BotBase {
 		panel.add(usrField);
 		passField=new JPasswordField("Password");
 		panel.add(passField);
+		scroll=new JScrollPane();
 		chatArea=new JTextArea();
 		chatArea.setLineWrap(true);
 		chatArea.setAutoscrolls(true);
@@ -157,6 +127,45 @@ public class Twitch extends BotBase {
 			}
 		});
 		panel.add(loginBtn);
+		GridBagLayout layout=new GridBagLayout();
+		GridBagConstraints constraints=new GridBagConstraints();
+		constraints.fill=GridBagConstraints.HORIZONTAL;
+		constraints.ipadx=1;
+		constraints.ipady=1;
+
+		constraints.gridwidth=1;
+		constraints.gridheight=1;
+		constraints.gridx=0;
+		constraints.gridy=0;
+		layout.addLayoutComponent(usrLbl, constraints);
+		constraints.gridx=1;
+		constraints.gridwidth=3;
+		layout.addLayoutComponent(usrField, constraints);
+		constraints.gridy=1;
+		layout.addLayoutComponent(passField, constraints);
+		constraints.gridx=0;
+		constraints.gridwidth=1;
+		layout.addLayoutComponent(passLbl, constraints);
+		constraints.gridy=2;
+		layout.addLayoutComponent(OAuthLbl, constraints);
+		constraints.gridx=1;
+		layout.addLayoutComponent(OAuthField, constraints);
+		constraints.gridx=0;
+		constraints.gridy=3;
+		layout.addLayoutComponent(loginBtn, constraints);
+		
+		constraints.gridy=7;
+		constraints.gridheight=1;
+		layout.addLayoutComponent(input, constraints);
+		constraints.gridx=4;
+		layout.addLayoutComponent(sendBtn, constraints);
+		constraints.gridx=0;
+		constraints.gridy=4;
+		constraints.gridheight=4;
+		constraints.weightx=1;
+		constraints.weighty=1;
+		layout.addLayoutComponent(scroll, constraints);
+		panel.setLayout(layout);
 
 		return panel;
 	}

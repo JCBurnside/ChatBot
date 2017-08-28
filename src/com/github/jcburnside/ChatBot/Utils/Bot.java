@@ -6,5 +6,5 @@ import org.atteo.classindex.IndexAnnotated;
 @Inherited
 @IndexAnnotated
 public @interface Bot {
-
+	
 }
